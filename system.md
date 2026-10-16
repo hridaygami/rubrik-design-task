@@ -21,15 +21,17 @@ Spacing was matched by measurement at a 1440px frame.
 | `brand` / `brand-hover` | #004D4C / #0F2424 | Logo, primary buttons, checked state, focus ring |
 | `secondary` / `secondary-hover` | #7B5E7B / #5C475C | Section label, card links |
 | `accent` | #21A179 | Defined, unused so far |
-| `grey` | #D7DEDC | All dividers, rails and tag outlines |
-| `light-grey` | #F4F6F5 | Row hover, open filter button |
+| `grey` | #D7DEDC | All dividers and rails |
+| `light-grey` | #F4F6F5 | Defined, unused since hovers moved to `hover-grey` |
+| `hover-grey` | #E6EAE9 | Hover on cards and filter buttons, and an open filter button |
 | `faint-grey` | #FAFBFA | Tag fill |
 | `mid-grey` | #B4BEBB | Tag outline |
 | `black` / `white` | #000 / #FFF | Text and page background |
 | `muted` | #626262 | Secondary text (nav, subtitle, counts) |
 
 - **`muted` is outside the palette.** `grey` is too light for text on white, and secondary text needs at least 4.5:1 contrast.
-- **`faint-grey` and `mid-grey` are outside the palette.** Tags sit on rows that hover to `light-grey`. A fill halfway to white plus a darker outline keeps them visible in both states.
+- **`hover-grey` is outside the palette.** It sits halfway between `light-grey` and `grey`. `light-grey` was too faint to read as a state, and `grey` swallowed the row dividers.
+- **`faint-grey` and `mid-grey` are outside the palette.** Tags sit on rows that hover to `hover-grey`. A near-white fill plus a darker outline keeps them visible in both states.
 - **`accent` is about 3.3:1 on white.** Use it for icons, borders, large text or as a fill behind black text, never for body text.
 - **Search and filter borders are black.** Everything else uses `grey`. The search bar is the page's main control, so it gets the strongest edge.
   - The bar's black sides sit on top of the grey page rails, so its box reads as closed.
@@ -71,7 +73,8 @@ Spacing was matched by measurement at a 1440px frame.
 ### Fresh off the press (featured cards)
 
 - **Card anatomy:** title, tag and link in one row from 1024px up; tag, then title, then link below 1024px.
-- **Hover matches the library list:** white by default, `light-grey` on hover. The link text also underlines on hover.
+- **Hover matches the library list:** white by default, `hover-grey` on hover. The link text also underlines and darkens to `secondary-hover` on hover.
+  - The darker link adds feedback and contrast; `secondary` alone is only about 4.6:1 on `hover-grey`.
   - We tried an image reveal behind the cards (hover on desktop, a scroll sweep on touch) and dropped it. It didn't feel right, and a plain hover keeps the two lists consistent.
 - **Links and tags never wrap.** The title absorbs the squeeze.
 
@@ -83,6 +86,8 @@ Spacing was matched by measurement at a 1440px frame.
 ### Filters
 
 - **Layout:** the search field and the three filters share one row from 1024px up. On tablets, the search field takes a full-width row with the three filters in the row below. On phones, everything stacks.
+- **Focusing the search field scrolls the section up, so results update in view.** From 640px up it brings "Find your next insight" to the top. On phones it brings the search bar itself to the top, because the keyboard leaves no room for the heading as well.
+  - The results area keeps at least a screen of height below the search bar. Without it, a short result list makes the page shorter than the screen, and the browser pulls the section back down.
 - **Content type, Use cases and Workload are multi-select checkbox groups,** not single selects. Real resource libraries need several options per filter.
 - **Matching:** a row passes if it matches any ticked option within a filter (OR) and every filter (AND).
 - **Each filter button shows a count badge of ticked options.**
@@ -148,5 +153,5 @@ Spacing was matched by measurement at a 1440px frame.
 ## Open questions
 
 - **Logo files:** the Rubrik logo SVGs are committed in `src/assets/`, and the favicon in `public/`. Should they move to a hosted URL like other imagery, or are logos an exception?
-- **Accent colour:** `accent` has no use yet.
+- **Unused colours:** `accent` and `light-grey` have no use yet.
 - **Unchecked motion:** the motion timings haven't been watched live on a real phone.

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Cursor } from './components/Cursor'
 import { FeaturedResources } from './components/FeaturedResources'
 import { ResourceFilters, type Facet, type Filters } from './components/ResourceFilters'
@@ -25,6 +25,19 @@ const matches = (selected: string[], value: string) => !selected.length || selec
 
 function App() {
   const [filters, setFilters] = useState<Filters>(emptyFilters)
+  const libraryHeading = useRef<HTMLHeadingElement>(null)
+  const searchBar = useRef<HTMLDivElement>(null)
+
+  // Starting a search brings the section to the top, so results update in view.
+  // Phones go to the search bar itself, since the keyboard leaves no room for
+  // the heading as well.
+  const showLibrary = () => {
+    const target = matchMedia('(min-width: 40rem)').matches ? libraryHeading : searchBar
+    target.current?.scrollIntoView({
+      block: 'start',
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    })
+  }
 
   const results = useMemo(() => {
     const query = filters.query.trim().toLowerCase()
@@ -52,8 +65,9 @@ function App() {
             <section aria-labelledby="library-heading">
               <div className="px-4 pt-16 pb-12 sm:px-6 sm:pt-12 sm:pb-8 lg:pt-20 lg:pb-12">
                 <h2
+                  ref={libraryHeading}
                   id="library-heading"
-                  className="rise text-display-sm font-normal tracking-[-0.01em] text-black md:text-display-md lg:text-display"
+                  className="rise scroll-mt-8 text-display-sm font-normal tracking-[-0.01em] text-black md:text-display-md lg:text-display"
                 >
                   Find your next insight
                 </h2>
@@ -64,20 +78,26 @@ function App() {
               </div>
 
               {/* Lifted above the list so the filter popover can overlap it. */}
-              <div className="rise relative z-20 [--rise-delay:460ms]">
+              <div ref={searchBar} className="rise relative z-20 scroll-mt-4 [--rise-delay:460ms]">
                 <ResourceFilters
                   value={filters}
                   onChange={setFilters}
+                  onSearchFocus={showLibrary}
                   facets={facets}
                   resultCount={results.length}
                 />
               </div>
 
-              <p role="status" className="px-4 pt-12 pb-4 text-body text-muted">
-                Showing {results.length} of {libraryResources.length} resources
-              </p>
+              {/* Keeps the page at least a screen tall below the search bar, so a
+                  short result list can't pull the scroll position (and the
+                  section) back down. */}
+              <div className="min-h-[calc(100lvh-22rem)]">
+                <p role="status" className="px-4 pt-12 pb-4 text-body text-muted">
+                  Showing {results.length} of {libraryResources.length} resources
+                </p>
 
-              <ResourceList items={results} />
+                <ResourceList items={results} />
+              </div>
             </section>
           </main>
         </div>

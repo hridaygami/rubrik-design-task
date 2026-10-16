@@ -16,11 +16,14 @@
 
   /* Not in the palette: secondary text needs ≥4.5:1 on white, which grey can't give. */
   --color-muted: #626262;
+  /* Not in the palette: hover fill, halfway between light-grey and grey. Light
+     grey was too faint to read as a state; grey swallowed the dividers. */
+  --color-hover-grey: #e6eae9;
   /* Not in the palette: tag fill, halfway between light-grey and white, so tags
-     stay visible on rows that hover to light-grey. */
+     read as a lighter chip on hovered rows. */
   --color-faint-grey: #fafbfa;
   /* Not in the palette: tag outline, darker than grey so tags hold their edge
-     on light-grey hover rows. */
+     on hovered rows. */
   --color-mid-grey: #b4bebb;
 
   /* Type scale. -sm steps are for narrow widths, -md for tablet. */

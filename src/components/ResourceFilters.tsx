@@ -17,12 +17,13 @@ type Props = {
   onChange: (next: Filters) => void
   facets: Facet[]
   resultCount: number
+  onSearchFocus?: () => void
 }
 
 // Dropdowns open as a popover from 1024px up and as a bottom sheet below.
 const DESKTOP_QUERY = '(min-width: 64rem)'
 
-export function ResourceFilters({ value, onChange, facets, resultCount }: Props) {
+export function ResourceFilters({ value, onChange, facets, resultCount, onSearchFocus }: Props) {
   const isDesktop = useMediaQuery(DESKTOP_QUERY)
   // Remember which layout a facet was opened in, so crossing the breakpoint
   // closes it instead of swapping a popover for a modal sheet mid-use.
@@ -85,6 +86,7 @@ export function ResourceFilters({ value, onChange, facets, resultCount }: Props)
             type="search"
             value={value.query}
             onChange={(e) => onChange({ ...value, query: e.target.value })}
+            onFocus={onSearchFocus}
             placeholder="Search resources"
             className="h-full w-full bg-transparent pr-4 pl-12 text-body text-black placeholder:text-black focus-visible:outline-offset-[-2px] sm:pl-14 [&::-webkit-search-cancel-button]:hidden"
           />
@@ -105,7 +107,7 @@ export function ResourceFilters({ value, onChange, facets, resultCount }: Props)
                 aria-expanded={expanded}
                 aria-controls={isDesktop ? panelId : sheetId}
                 onClick={() => toggle(facet.key)}
-                className={`flex h-12 cursor-pointer items-center gap-2 border-black px-4 text-left text-body text-black transition-colors hover:bg-light-grey focus-visible:outline-offset-[-2px] aria-expanded:bg-light-grey sm:border-l ${
+                className={`flex h-12 cursor-pointer items-center gap-2 border-black px-4 text-left text-body text-black transition-colors hover:bg-hover-grey focus-visible:outline-offset-[-2px] aria-expanded:bg-hover-grey sm:border-l ${
                   i < facets.length - 1 ? 'border-b sm:border-b-0' : ''
                 } ${i === 0 ? 'sm:border-l-0 lg:border-l' : ''}`}
               >
@@ -280,7 +282,7 @@ function FilterSheet({ id, facet, selected, onChange, onClose, resultCount }: Fi
               type="button"
               onClick={() => onChange([])}
               disabled={selected.length === 0}
-              className="h-12 cursor-pointer border border-black px-5 text-body font-medium text-black transition-colors hover:bg-light-grey disabled:cursor-default disabled:border-grey disabled:text-muted disabled:hover:bg-transparent"
+              className="h-12 cursor-pointer border border-black px-5 text-body font-medium text-black transition-colors hover:bg-hover-grey disabled:cursor-default disabled:border-grey disabled:text-muted disabled:hover:bg-transparent"
             >
               Clear
             </button>
