@@ -1,6 +1,20 @@
-import logoColour from '../assets/rubrik-logo-colour.svg'
+import logoMask from '../assets/rubrik-logo-black.svg'
 
-// Decorative: the wrapping home link carries the accessible name.
+// The logo SVG is used as a mask so its colour comes from tokens and can
+// change on hover. Decorative: the wrapping home link carries the name.
 export function Logo() {
-  return <img src={logoColour} width={168} height={48} alt="" className="block" />
+  return (
+    <span
+      aria-hidden
+      className="block aspect-168/48 h-12 bg-brand transition-colors group-hover:bg-brand-hover"
+      style={{
+        maskImage: `url(${logoMask})`,
+        WebkitMaskImage: `url(${logoMask})`,
+        maskSize: 'contain',
+        WebkitMaskSize: 'contain',
+        maskRepeat: 'no-repeat',
+        WebkitMaskRepeat: 'no-repeat',
+      }}
+    />
+  )
 }

@@ -21,6 +21,12 @@
 @layer base {
   :root {
     color-scheme: light;
+    /* Keep focused and anchored content clear of the sticky header. */
+    scroll-padding-top: 5rem;
+
+    @variant md {
+      scroll-padding-top: 6rem;
+    }
   }
 
   body {

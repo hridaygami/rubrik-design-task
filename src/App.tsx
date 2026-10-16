@@ -22,49 +22,50 @@ function App() {
   }, [filters])
 
   return (
-    <div className="mx-auto max-w-[1440px] pb-20 sm:px-6">
-      <div className="border-x border-grey">
-        <SiteHeader />
-
-        <main>
-          <h1 className="sr-only">Resources</h1>
-          <div className="pt-12 md:pt-20">
-            <FeaturedResources items={featuredResources} />
-          </div>
-
-          <section aria-labelledby="library-heading">
-            <div className="px-4 pt-16 pb-12 sm:px-6 md:pt-20">
-              <h2
-                id="library-heading"
-                className="text-5xl leading-[1.1] font-medium tracking-[-0.01em] text-black md:text-7xl"
-              >
-                Find your next insight
-              </h2>
-              <p className="mt-6 max-w-[60rem] text-lg text-muted md:mt-3 md:text-[21px]">
-                Explore research, expert insights and practical guidance to strengthen cyber
-                resilience.
-              </p>
+    <>
+      <SiteHeader />
+      <div className="mx-auto max-w-[1440px] pb-20 sm:px-6">
+        <div className="border-x border-grey">
+          <main>
+            <h1 className="sr-only">Resources</h1>
+            <div className="pt-12 md:pt-20">
+              <FeaturedResources items={featuredResources} />
             </div>
 
-            <ResourceFilters
-              value={filters}
-              onChange={setFilters}
-              selects={[
-                { key: 'type', label: 'Content type', options: contentTypes },
-                { key: 'useCase', label: 'Use cases', options: useCases },
-                { key: 'workload', label: 'Workload', options: workloads },
-              ]}
-            />
+            <section aria-labelledby="library-heading">
+              <div className="px-4 pt-16 pb-12 sm:px-6 md:pt-20">
+                <h2
+                  id="library-heading"
+                  className="text-5xl leading-[1.1] font-medium tracking-[-0.01em] text-black md:text-7xl"
+                >
+                  Find your next insight
+                </h2>
+                <p className="mt-6 max-w-[60rem] text-lg text-muted md:mt-3 md:text-[21px]">
+                  Explore research, expert insights and practical guidance to strengthen cyber
+                  resilience.
+                </p>
+              </div>
 
-            <p role="status" className="px-4 pt-12 pb-4 text-base text-muted sm:px-6">
-              Showing {results.length} of {resources.length} resources
-            </p>
+              <ResourceFilters
+                value={filters}
+                onChange={setFilters}
+                selects={[
+                  { key: 'type', label: 'Content type', options: contentTypes },
+                  { key: 'useCase', label: 'Use cases', options: useCases },
+                  { key: 'workload', label: 'Workload', options: workloads },
+                ]}
+              />
 
-            <ResourceList items={results} />
-          </section>
-        </main>
+              <p role="status" className="px-4 pt-12 pb-4 text-base text-muted sm:px-6">
+                Showing {results.length} of {resources.length} resources
+              </p>
+
+              <ResourceList items={results} />
+            </section>
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -1,5 +1,5 @@
 import type { Resource } from '../data/resources'
-import { ArrowUpRightIcon } from './icons'
+import { ArrowUpRight } from 'lucide-react'
 import { Tag } from './Tag'
 
 export function FeaturedResources({ items }: { items: Resource[] }) {
@@ -22,7 +22,7 @@ export function FeaturedResources({ items }: { items: Resource[] }) {
               <Tag>{item.type}</Tag>
               <span className="inline-flex w-full items-center gap-3 text-base text-secondary group-hover:text-secondary-hover md:ml-auto md:w-auto">
                 {item.cta}
-                <ArrowUpRightIcon width={12} height={12} />
+                <ArrowUpRight size={12} strokeWidth={1.5} aria-hidden />
               </span>
             </a>
           </li>

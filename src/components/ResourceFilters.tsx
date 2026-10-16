@@ -1,4 +1,4 @@
-import { ChevronDownIcon, SearchIcon } from './icons'
+import { ChevronDown, Search } from 'lucide-react'
 
 export type Filters = {
   query: string
@@ -27,7 +27,7 @@ export function ResourceFilters({ value, onChange, selects }: Props) {
     >
       <label className="relative flex h-12 items-center border-b border-grey sm:col-span-3 md:col-span-1 md:border-b-0">
         <span className="sr-only">Search resources</span>
-        <SearchIcon className="pointer-events-none absolute left-4 text-black sm:left-6" />
+        <Search size={20} strokeWidth={2} aria-hidden className="pointer-events-none absolute left-4 text-black sm:left-6" />
         <input
           type="search"
           value={value.query}
@@ -57,7 +57,7 @@ export function ResourceFilters({ value, onChange, selects }: Props) {
               </option>
             ))}
           </select>
-          <ChevronDownIcon className="pointer-events-none absolute right-5 text-muted" />
+          <ChevronDown size={16} strokeWidth={1.75} aria-hidden className="pointer-events-none absolute right-5 text-muted" />
         </div>
       ))}
     </div>

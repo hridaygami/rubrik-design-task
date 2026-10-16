@@ -1,5 +1,5 @@
 import type { Resource } from '../data/resources'
-import { ArrowUpRightIcon } from './icons'
+import { ArrowUpRight } from 'lucide-react'
 import { Tag } from './Tag'
 
 export function ResourceList({ items }: { items: Resource[] }) {
@@ -21,7 +21,11 @@ export function ResourceList({ items }: { items: Resource[] }) {
               <Tag>{item.type}</Tag>
             </span>
             <span className="flex w-16 shrink-0 items-center justify-center border-l border-grey text-black">
-              <ArrowUpRightIcon width={20} height={20} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight
+                size={20}
+                strokeWidth={1.5}
+                aria-hidden
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
           </a>
         </li>
