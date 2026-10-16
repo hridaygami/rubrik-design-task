@@ -37,14 +37,14 @@ export function SiteHeader() {
     <>
       <div
         aria-hidden
-        className={`fixed inset-0 z-30 bg-black/50 transition-[opacity,visibility] duration-300 ease-out motion-reduce:transition-none lg:hidden ${
+        className={`fixed inset-0 z-30 bg-black/50 transition-[opacity,visibility] duration-250 ease-out motion-reduce:transition-none lg:hidden ${
           menuOpen ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
         onClick={() => setMenuOpen(false)}
       />
 
       <header className="sticky top-0 z-40 border-b border-grey bg-white">
-        <div className="mx-auto max-w-[1440px] sm:px-6">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
           <div className="relative border-x border-grey">
             <div className="flex items-center justify-between gap-6 px-4 py-4 sm:px-6 md:py-6 lg:gap-12">
               <a href="/" aria-label="Rubrik home" className="group shrink-0">
@@ -58,7 +58,7 @@ export function SiteHeader() {
                       <a
                         href="#"
                         aria-current={item === 'Resources' ? 'page' : undefined}
-                        className="text-base text-muted transition-colors hover:text-black"
+                        className="text-body text-muted transition-colors hover:text-black"
                       >
                         {item}
                       </a>
@@ -70,7 +70,7 @@ export function SiteHeader() {
               <div className="flex items-center gap-12">
                 <a
                   href="#"
-                  className="hidden h-12 w-40 items-center justify-center bg-brand text-base text-white transition-colors hover:bg-brand-hover sm:inline-flex"
+                  className="hidden h-12 w-40 items-center justify-center bg-brand text-body text-white transition-colors hover:bg-brand-hover sm:inline-flex"
                 >
                   Get in touch
                 </a>
@@ -97,7 +97,7 @@ export function SiteHeader() {
               <nav
                 id="mobile-menu"
                 aria-label="Main"
-                className={`pointer-events-auto border-y border-grey bg-white transition-[translate,visibility] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none ${
+                className={`pointer-events-auto border-y border-grey bg-white transition-[translate,visibility] duration-250 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none ${
                   menuOpen ? 'visible translate-y-0' : 'invisible -translate-y-full'
                 }`}
               >
@@ -108,7 +108,7 @@ export function SiteHeader() {
                         href="#"
                         aria-current={item === 'Resources' ? 'page' : undefined}
                         onClick={() => setMenuOpen(false)}
-                        className="block px-4 py-4 text-base text-muted hover:text-black sm:px-6"
+                        className="block px-4 py-4 text-body text-muted hover:text-black sm:px-6"
                       >
                         {item}
                       </a>
@@ -118,7 +118,7 @@ export function SiteHeader() {
                     <a
                       href="#"
                       onClick={() => setMenuOpen(false)}
-                      className="flex h-12 items-center justify-center bg-brand text-base text-white hover:bg-brand-hover"
+                      className="flex h-12 items-center justify-center bg-brand text-body text-white hover:bg-brand-hover"
                     >
                       Get in touch
                     </a>
