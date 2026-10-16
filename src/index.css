@@ -1,111 +1,101 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import 'tailwindcss';
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+/* Project palette. */
+@theme {
+  --font-sans: 'Host Grotesk', ui-sans-serif, system-ui, sans-serif;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-brand: #004d4c;
+  --color-brand-hover: #0f2424;
+  --color-secondary: #7b5e7b;
+  --color-secondary-hover: #5c475c;
+  --color-accent: #21a179;
+  --color-grey: #d7dedc;
+  --color-light-grey: #f4f6f5;
+  --color-white: #ffffff;
+  --color-black: #000000;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+  /* Not in the palette: secondary text needs ≥4.5:1 on white, which grey can't give. */
+  --color-muted: #626262;
+  /* Not in the palette: hover fill, halfway between light-grey and grey. Light
+     grey was too faint to read as a state; grey swallowed the dividers. */
+  --color-hover-grey: #e6eae9;
+  /* Not in the palette: tag fill, halfway between light-grey and white, so tags
+     read as a lighter chip on hovered rows. */
+  --color-faint-grey: #fafbfa;
+  /* Not in the palette: tag outline, darker than grey so tags hold their edge
+     on hovered rows. */
+  --color-mid-grey: #b4bebb;
+
+  /* Type scale. -sm steps are for narrow widths, -md for tablet. */
+  --text-display: 4.5rem;
+  --text-display--line-height: 1.1;
+  --text-display-md: 3.75rem;
+  --text-display-md--line-height: 1.1;
+  --text-display-sm: 3rem;
+  --text-display-sm--line-height: 1.1;
+  --text-lead: 1.3125rem;
+  --text-lead--line-height: 1.5;
+  --text-lead-sm: 1.125rem;
+  --text-lead-sm--line-height: 1.55;
+  --text-title: 1.5rem;
+  --text-title--line-height: 1.333;
+  --text-title-sm: 1.25rem;
+  --text-title-sm--line-height: 1.4;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1;
+}
+
+/* Entrance: a short rise and fade. Each element sets its own --rise-delay. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@utility rise {
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--rise-delay, 0s);
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@layer base {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    color-scheme: light;
+    /* Keep focused and anchored content clear of the sticky header. */
+    scroll-padding-top: 5rem;
+
+    @variant md {
+      scroll-padding-top: 6rem;
+    }
   }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+  /* The custom cursor replaces the native one, except while a modal dialog is
+     open: dialogs sit in the top layer, above the cursor dot. */
+  html[data-custom-cursor]:not(:has(dialog:modal)),
+  html[data-custom-cursor]:not(:has(dialog:modal)) * {
+    cursor: none !important;
   }
-}
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+  html:has(dialog:modal) [data-cursor-dot] {
+    visibility: hidden;
   }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+
+  /* Modal dialogs (the filter sheet) lock page scroll while open. */
+  html:has(dialog:modal) {
+    overflow: hidden;
   }
-}
-p {
-  margin: 0;
-}
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
+  body {
+    @apply bg-white font-sans text-black antialiased;
+  }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
 }

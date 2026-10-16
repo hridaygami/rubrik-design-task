@@ -1,120 +1,107 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useMemo, useRef, useState } from 'react'
+import { Cursor } from './components/Cursor'
+import { FeaturedResources } from './components/FeaturedResources'
+import { ResourceFilters, type Facet, type Filters } from './components/ResourceFilters'
+import { ResourceList } from './components/ResourceList'
+import { SiteHeader } from './components/SiteHeader'
+import {
+  contentTypes,
+  featuredResources,
+  libraryResources,
+  useCases,
+  workloads,
+} from './data/resources'
+
+const emptyFilters: Filters = { query: '', type: [], useCase: [], workload: [] }
+
+const facets: Facet[] = [
+  { key: 'type', label: 'Content type', options: contentTypes },
+  { key: 'useCase', label: 'Use cases', options: useCases },
+  { key: 'workload', label: 'Workload', options: workloads },
+]
+
+// Any match within a facet, every facet must match.
+const matches = (selected: string[], value: string) => !selected.length || selected.includes(value)
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [filters, setFilters] = useState<Filters>(emptyFilters)
+  const libraryHeading = useRef<HTMLHeadingElement>(null)
+  const searchBar = useRef<HTMLDivElement>(null)
+
+  // Starting a search brings the section to the top, so results update in view.
+  // Phones go to the search bar itself, since the keyboard leaves no room for
+  // the heading as well.
+  const showLibrary = () => {
+    const target = matchMedia('(min-width: 40rem)').matches ? libraryHeading : searchBar
+    target.current?.scrollIntoView({
+      block: 'start',
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    })
+  }
+
+  const results = useMemo(() => {
+    const query = filters.query.trim().toLowerCase()
+    return libraryResources.filter(
+      (r) =>
+        (!query || r.title.toLowerCase().includes(query)) &&
+        matches(filters.type, r.type) &&
+        matches(filters.useCase, r.useCase) &&
+        matches(filters.workload, r.workload),
+    )
+  }, [filters])
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <Cursor />
+      <SiteHeader />
+      <div className="mx-auto max-w-[1440px] px-4 pb-20 sm:px-6">
+        <div className="border-x border-grey">
+          <main>
+            <h1 className="sr-only">Resources</h1>
+            <div className="pt-12 lg:pt-20">
+              <FeaturedResources items={featuredResources} />
+            </div>
 
-      <div className="ticks"></div>
+            <section aria-labelledby="library-heading">
+              <div className="px-4 pt-16 pb-12 sm:px-6 sm:pt-12 sm:pb-8 lg:pt-20 lg:pb-12">
+                <h2
+                  ref={libraryHeading}
+                  id="library-heading"
+                  className="rise scroll-mt-8 text-display-sm font-normal tracking-[-0.01em] text-black md:text-display-md lg:text-display"
+                >
+                  Find your next insight
+                </h2>
+                <p className="rise mt-6 max-w-[60rem] text-lead-sm text-muted [--rise-delay:80ms] md:mt-3 md:text-lead">
+                  Explore research, expert insights and practical guidance to strengthen cyber
+                  resilience.
+                </p>
+              </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+              {/* Lifted above the list so the filter popover can overlap it. */}
+              <div ref={searchBar} className="rise relative z-20 scroll-mt-4 [--rise-delay:460ms]">
+                <ResourceFilters
+                  value={filters}
+                  onChange={setFilters}
+                  onSearchFocus={showLibrary}
+                  facets={facets}
+                  resultCount={results.length}
+                />
+              </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+              {/* Keeps the page at least a screen tall below the search bar, so a
+                  short result list can't pull the scroll position (and the
+                  section) back down. */}
+              <div className="min-h-[calc(100lvh-22rem)]">
+                <p role="status" className="px-4 pt-12 pb-4 text-body text-muted">
+                  Showing {results.length} of {libraryResources.length} resources
+                </p>
+
+                <ResourceList items={results} />
+              </div>
+            </section>
+          </main>
+        </div>
+      </div>
     </>
   )
 }
