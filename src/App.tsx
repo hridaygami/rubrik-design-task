@@ -1,121 +1,70 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useMemo, useState } from 'react'
+import { FeaturedResources } from './components/FeaturedResources'
+import { ResourceFilters, type Filters } from './components/ResourceFilters'
+import { ResourceList } from './components/ResourceList'
+import { SiteHeader } from './components/SiteHeader'
+import { contentTypes, featuredResources, resources, useCases, workloads } from './data/resources'
+
+const emptyFilters: Filters = { query: '', type: '', useCase: '', workload: '' }
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [filters, setFilters] = useState<Filters>(emptyFilters)
+
+  const results = useMemo(() => {
+    const query = filters.query.trim().toLowerCase()
+    return resources.filter(
+      (r) =>
+        (!query || r.title.toLowerCase().includes(query)) &&
+        (!filters.type || r.type === filters.type) &&
+        (!filters.useCase || r.useCase === filters.useCase) &&
+        (!filters.workload || r.workload === filters.workload),
+    )
+  }, [filters])
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="mx-auto max-w-[1440px] pb-20 sm:px-6">
+      <div className="border-x border-line">
+        <SiteHeader />
 
-      <div className="ticks"></div>
+        <main>
+          <h1 className="sr-only">Resources</h1>
+          <div className="pt-12 md:pt-20">
+            <FeaturedResources items={featuredResources} />
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <section aria-labelledby="library-heading">
+            <div className="px-4 pt-16 pb-10 sm:px-6 md:pt-20">
+              <h2
+                id="library-heading"
+                className="text-5xl leading-[1.1] font-medium tracking-[-0.02em] text-ink md:text-[80px]"
+              >
+                Find your next insight
+              </h2>
+              <p className="mt-6 max-w-[60rem] text-lg text-muted md:mt-3 md:text-[21px]">
+                Explore research, expert insights and practical guidance to strengthen cyber
+                resilience.
+              </p>
+            </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+            <ResourceFilters
+              value={filters}
+              onChange={setFilters}
+              selects={[
+                { key: 'type', label: 'Content type', options: contentTypes },
+                { key: 'useCase', label: 'Use cases', options: useCases },
+                { key: 'workload', label: 'Workload', options: workloads },
+              ]}
+            />
+
+            <p role="status" className="px-4 pt-12 pb-4 text-[15px] text-muted sm:px-6">
+              Showing {results.length} of {resources.length} resources
+            </p>
+
+            <ResourceList items={results} />
+          </section>
+        </main>
+      </div>
+    </div>
   )
 }
 
