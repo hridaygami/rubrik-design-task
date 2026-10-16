@@ -1,20 +1,21 @@
 @import 'tailwindcss';
 
-/* Values sampled from the Figma frame (Rubrik Task, node 37-951). */
+/* Project palette. */
 @theme {
-  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Host Grotesk', ui-sans-serif, system-ui, sans-serif;
 
   --color-brand: #004d4c;
-  --color-brand-strong: #003837;
-  --color-ink: #061915;
-  --color-text: #0a0a0a;
+  --color-brand-hover: #0f2424;
+  --color-secondary: #7b5e7b;
+  --color-secondary-hover: #5c475c;
+  --color-accent: #21a179;
+  --color-grey: #d7dedc;
+  --color-light-grey: #f4f6f5;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Not in the palette: secondary text needs ≥4.5:1 on white, which grey can't give. */
   --color-muted: #626262;
-  --color-accent: #786078;
-  --color-accent-strong: #5e475e;
-  --color-line: #d9dfdc;
-  --color-line-subtle: #eeeeee;
-  --color-tag: #f6f9f8;
-  --color-tag-line: #dfe4e2;
 }
 
 @layer base {
@@ -23,7 +24,7 @@
   }
 
   body {
-    @apply bg-white font-sans text-text antialiased;
+    @apply bg-white font-sans text-black antialiased;
   }
 
   :focus-visible {

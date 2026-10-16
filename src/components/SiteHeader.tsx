@@ -8,7 +8,7 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="border-b border-line">
+    <header className="border-b border-grey">
       <div className="flex h-24 items-center justify-between gap-6 px-4 lg:gap-12 sm:px-6">
         <a href="/" aria-label="Rubrik home" className="shrink-0">
           <Logo />
@@ -21,7 +21,7 @@ export function SiteHeader() {
                 <a
                   href="#"
                   aria-current={item === 'Resources' ? 'page' : undefined}
-                  className="text-base text-muted transition-colors hover:text-text"
+                  className="text-base text-muted transition-colors hover:text-black"
                 >
                   {item}
                 </a>
@@ -33,13 +33,13 @@ export function SiteHeader() {
         <div className="flex items-center gap-12">
           <a
             href="#"
-            className="hidden h-12 w-40 items-center justify-center bg-brand text-base text-white transition-colors hover:bg-brand-strong sm:inline-flex"
+            className="hidden h-12 w-40 items-center justify-center bg-brand text-base text-white transition-colors hover:bg-brand-hover sm:inline-flex"
           >
             Get in touch
           </a>
           <button
             type="button"
-            className="-mr-2 inline-flex size-11 items-center justify-center text-text lg:hidden"
+            className="-mr-2 inline-flex size-11 items-center justify-center text-black lg:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
@@ -54,7 +54,7 @@ export function SiteHeader() {
         id="mobile-menu"
         aria-label="Main"
         hidden={!menuOpen}
-        className="border-t border-line lg:hidden"
+        className="border-t border-grey lg:hidden"
       >
         <ul className="flex flex-col py-2">
           {navItems.map((item) => (
@@ -62,7 +62,7 @@ export function SiteHeader() {
               <a
                 href="#"
                 aria-current={item === 'Resources' ? 'page' : undefined}
-                className="block px-4 py-3 text-base text-muted hover:text-text sm:px-6"
+                className="block px-4 py-3 text-base text-muted hover:text-black sm:px-6"
               >
                 {item}
               </a>
@@ -71,7 +71,7 @@ export function SiteHeader() {
           <li className="px-4 pt-2 pb-3 sm:hidden">
             <a
               href="#"
-              className="flex h-12 items-center justify-center bg-brand text-base text-white hover:bg-brand-strong"
+              className="flex h-12 items-center justify-center bg-brand text-base text-white hover:bg-brand-hover"
             >
               Get in touch
             </a>

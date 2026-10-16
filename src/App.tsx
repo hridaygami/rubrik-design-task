@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="mx-auto max-w-[1440px] pb-20 sm:px-6">
-      <div className="border-x border-line">
+      <div className="border-x border-grey">
         <SiteHeader />
 
         <main>
@@ -33,10 +33,10 @@ function App() {
           </div>
 
           <section aria-labelledby="library-heading">
-            <div className="px-4 pt-16 pb-10 sm:px-6 md:pt-20">
+            <div className="px-4 pt-16 pb-12 sm:px-6 md:pt-20">
               <h2
                 id="library-heading"
-                className="text-5xl leading-[1.1] font-medium tracking-[-0.02em] text-ink md:text-[80px]"
+                className="text-5xl leading-[1.1] font-medium tracking-[-0.01em] text-black md:text-7xl"
               >
                 Find your next insight
               </h2>
@@ -56,7 +56,7 @@ function App() {
               ]}
             />
 
-            <p role="status" className="px-4 pt-12 pb-4 text-[15px] text-muted sm:px-6">
+            <p role="status" className="px-4 pt-12 pb-4 text-base text-muted sm:px-6">
               Showing {results.length} of {resources.length} resources
             </p>
 

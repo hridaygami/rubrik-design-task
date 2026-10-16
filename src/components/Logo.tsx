@@ -1,9 +1,6 @@
-// TODO: swap in the exported Rubrik logo SVG (mark + wordmark) once it's
-// available. Until then this renders the wordmark as text.
+import logoColour from '../assets/rubrik-logo-colour.svg'
+
+// Decorative: the wrapping home link carries the accessible name.
 export function Logo() {
-  return (
-    <span className="text-[40px] leading-none font-medium tracking-[-0.02em] text-brand">
-      rubrik
-    </span>
-  )
+  return <img src={logoColour} width={168} height={48} alt="" className="block" />
 }
