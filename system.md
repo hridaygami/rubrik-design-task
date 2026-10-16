@@ -47,6 +47,7 @@ Spacing was matched by measurement at a 1440px frame.
 - **The page is a bordered frame capped at 1440px.** Two vertical rails run the full page height.
 - **Rails sit 16px from the screen edge below 640px and 24px from 640px up.** The rails are part of the visual identity, so they stay visible on phones too.
 - **Content padding inside the frame is 16px on cards and rows, and 24px on the hero and header from 640px up.**
+- **Section spacing is tighter on tablets (640–1023px) than on desktop,** so the search bar fits on the first screen of an iPad-sized portrait tablet (768×1024 and up).
 - **The header is full-bleed.** Its white bar and bottom border span the viewport, while its content follows the same 1440px frame so the logo lines up with the page below.
 - **Breakpoints:** 640 (`sm`), 768 (`md`), 1024 (`lg`). 1024 is the behaviour switch: hamburger menu, stacked cards, filter bottom sheet and the search field on its own row below it; inline nav, row cards, filter popovers and a single search-and-filter row at and above it.
 
@@ -126,6 +127,10 @@ Spacing was matched by measurement at a 1440px frame.
 ## Content and assets
 
 - **Images are hotlinked by URL and never committed.** Unsplash photos use their `images.unsplash.com` URL with a `srcset`.
+- **The favicon is the logomark alone, black in light mode and white in dark mode.** It's one SVG that switches with `prefers-color-scheme`, so the browser tab picks the right version.
+- **The Open Graph card is the brand-green logo centred on white.**
+  - The build renders it to PNG from the logo SVG, because share previews don't accept SVG and raster files stay out of the repo.
+  - Crawlers need an absolute URL, so set `SITE_URL` when building for deployment.
 - **Links, and each library item's use case and workload, are placeholders** in `src/data/resources.ts`.
 
 ---
@@ -142,6 +147,6 @@ Spacing was matched by measurement at a 1440px frame.
 
 ## Open questions
 
-- **Logo files:** the Rubrik logo SVGs are committed in `src/assets/`. Should they move to a hosted URL like other imagery, or are logos an exception?
+- **Logo files:** the Rubrik logo SVGs are committed in `src/assets/`, and the favicon in `public/`. Should they move to a hosted URL like other imagery, or are logos an exception?
 - **Accent colour:** `accent` has no use yet.
 - **Unchecked motion:** the motion timings haven't been watched live on a real phone.

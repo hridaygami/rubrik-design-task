@@ -45,12 +45,12 @@ function App() {
         <div className="border-x border-grey">
           <main>
             <h1 className="sr-only">Resources</h1>
-            <div className="pt-12 md:pt-20">
+            <div className="pt-12 lg:pt-20">
               <FeaturedResources items={featuredResources} />
             </div>
 
             <section aria-labelledby="library-heading">
-              <div className="px-4 pt-16 pb-12 sm:px-6 md:pt-20">
+              <div className="px-4 pt-16 pb-12 sm:px-6 sm:pt-12 sm:pb-8 lg:pt-20 lg:pb-12">
                 <h2
                   id="library-heading"
                   className="rise text-display-sm font-normal tracking-[-0.01em] text-black md:text-display-md lg:text-display"

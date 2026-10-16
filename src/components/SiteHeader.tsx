@@ -67,7 +67,7 @@ export function SiteHeader() {
                 </ul>
               </nav>
 
-              <div className="flex items-center gap-12">
+              <div className="flex items-center gap-3">
                 <a
                   href="#"
                   className="hidden h-12 w-40 items-center justify-center bg-brand text-body text-white transition-colors hover:bg-brand-hover sm:inline-flex"
