@@ -71,9 +71,9 @@ export function ResourceFilters({ value, onChange, facets, resultCount }: Props)
           const next = e.relatedTarget as Node | null
           if (popoverKey && next && !e.currentTarget.contains(next)) close()
         }}
-        className="relative grid grid-cols-1 border-y border-black sm:grid-cols-3 md:grid-cols-[1fr_repeat(3,11.25rem)]"
+        className="relative -mx-px grid grid-cols-1 border border-black sm:grid-cols-3 lg:grid-cols-[1fr_repeat(3,11.25rem)]"
       >
-        <label className="relative flex h-12 items-center border-b border-black sm:col-span-3 md:col-span-1 md:border-b-0">
+        <label className="relative flex h-12 items-center border-b border-black sm:col-span-3 lg:col-span-1 lg:border-b-0">
           <span className="sr-only">Search resources</span>
           <Search
             size={20}
@@ -107,7 +107,7 @@ export function ResourceFilters({ value, onChange, facets, resultCount }: Props)
                 onClick={() => toggle(facet.key)}
                 className={`flex h-12 cursor-pointer items-center gap-2 border-black px-4 text-left text-body text-black transition-colors hover:bg-light-grey focus-visible:outline-offset-[-2px] aria-expanded:bg-light-grey sm:border-l ${
                   i < facets.length - 1 ? 'border-b sm:border-b-0' : ''
-                } ${i === 0 ? 'sm:border-l-0 md:border-l' : ''}`}
+                } ${i === 0 ? 'sm:border-l-0 lg:border-l' : ''}`}
               >
                 <span className="flex-1 truncate">{facet.label}</span>
                 {selected.length > 0 && (
@@ -130,7 +130,7 @@ export function ResourceFilters({ value, onChange, facets, resultCount }: Props)
               {popoverKey === facet.key && (
                 <div
                   id={panelId}
-                  className="absolute inset-x-0 top-full z-20 border-b border-black bg-white transition-[opacity,translate] duration-150 ease-out starting:-translate-y-1 starting:opacity-0 motion-reduce:transition-none"
+                  className="absolute -inset-x-px top-full z-20 border border-t-grey border-black bg-white transition-[opacity,translate] duration-150 ease-out starting:-translate-y-1 starting:opacity-0 motion-reduce:transition-none"
                 >
                   <FacetOptions
                     facet={facet}

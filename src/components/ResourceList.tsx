@@ -5,7 +5,7 @@ import { Tag } from './Tag'
 export function ResourceList({ items }: { items: LibraryResource[] }) {
   if (items.length === 0) {
     return (
-      <p className="border-t border-grey px-4 py-10 text-body text-muted sm:px-6">
+      <p className="border-y border-grey px-4 py-10 text-body text-muted sm:px-6">
         No resources match your filters.
       </p>
     )
@@ -14,7 +14,7 @@ export function ResourceList({ items }: { items: LibraryResource[] }) {
   return (
     <ul className="border-t border-grey">
       {items.map((item) => (
-        <li key={item.id} className="border-b border-grey last:border-b-0">
+        <li key={item.id} className="border-b border-grey">
           <a href={item.href} className="group flex transition-colors hover:bg-light-grey">
             <span className="flex flex-1 flex-col items-start gap-3 p-4">
               <span className="text-title-sm text-black lg:text-title">{item.title}</span>

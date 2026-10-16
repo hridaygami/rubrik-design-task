@@ -51,7 +51,7 @@ function App() {
               <div className="px-4 pt-16 pb-12 sm:px-6 md:pt-20">
                 <h2
                   id="library-heading"
-                  className="rise text-display-sm font-normal tracking-[-0.01em] text-black md:text-display"
+                  className="rise text-display-sm font-normal tracking-[-0.01em] text-black md:text-display-md lg:text-display"
                 >
                   Find your next insight
                 </h2>

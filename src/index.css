@@ -17,9 +17,11 @@
   /* Not in the palette: secondary text needs ≥4.5:1 on white, which grey can't give. */
   --color-muted: #626262;
 
-  /* Type scale. The -sm steps are for narrow and medium widths. */
+  /* Type scale. -sm steps are for narrow widths, -md for tablet. */
   --text-display: 4.5rem;
   --text-display--line-height: 1.1;
+  --text-display-md: 3.75rem;
+  --text-display-md--line-height: 1.1;
   --text-display-sm: 3rem;
   --text-display-sm--line-height: 1.1;
   --text-lead: 1.3125rem;
@@ -44,23 +46,8 @@
   }
 }
 
-@keyframes appear {
-  from {
-    opacity: 0;
-  }
-}
-
 @utility rise {
   animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: var(--rise-delay, 0s);
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-@utility appear {
-  animation: appear 0.2s ease-out both;
   animation-delay: var(--rise-delay, 0s);
 
   @media (prefers-reduced-motion: reduce) {
