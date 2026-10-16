@@ -101,15 +101,15 @@ Spacing was matched by measurement at a 1440px frame.
 - **Easing is smooth ease-out with no bounce.** Movement is restrained: 12px of travel for entrances, short slides for overlays.
 - **Page entrance:** a staggered rise and fade, in this order: headline, subtitle, featured cards one by one, then the search bar.
 - **Overlays (menu, scrim, filter sheet) run at 250ms.** Feedback found 300ms or slower "lazy".
-- **Card hovers come in fast (150ms) and fade out slowly (500ms),** so the page feels relaxed rather than twitchy.
+- **Card hovers come in fast (150ms) and fade out slowly (800ms),** so the page feels relaxed rather than twitchy.
 - **`prefers-reduced-motion` turns off the entrances and slides.** Content still appears; it just doesn't move.
 
 ### Cursor
 
-- **On mouse and trackpad devices, the native cursor becomes a 16px `brand` circle that eases toward the pointer,** adding a relaxed feel to the page. Touch devices keep native behaviour.
+- **On mouse and trackpad devices, the native cursor becomes a 16px `brand` circle that tracks the pointer exactly.** Touch devices keep native behaviour.
+  - We tried an easing lag for a relaxed feel and removed it, because a cursor that trails the pointer is harder to aim, especially for people with motor impairments.
 - **Over dark surfaces the circle turns `grey`.** It works out whether the background under the pointer is dark, so new dark elements need no extra setup.
 - **The native cursor comes back while a modal dialog is open,** because dialogs render above everything, including the circle.
-- **Under reduced motion the circle follows the pointer exactly, without the lag.**
 
 ---
 

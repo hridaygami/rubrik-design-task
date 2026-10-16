@@ -2,11 +2,10 @@ import { useEffect, useRef } from 'react'
 
 // Mouse and trackpad only; touch screens keep their native behaviour.
 const FINE_POINTER = '(hover: hover) and (pointer: fine)'
-// Share of the remaining distance covered per 60fps frame. Lower is lazier.
-const FOLLOW = 0.15
 // Surfaces darker than this relative luminance get the light cursor.
 const DARK_LUMINANCE = 0.25
 
+// Tracks the pointer exactly: an easing lag made the cursor harder to aim.
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null)
 
@@ -15,46 +14,21 @@ export function Cursor() {
     const fine = window.matchMedia(FINE_POINTER)
     if (!el || !fine.matches) return
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     const root = document.documentElement
     root.dataset.customCursor = ''
-
-    const target = { x: -100, y: -100 }
-    const pos = { ...target }
-    let frame = 0
-    let last = 0
-
-    const render = (now: number) => {
-      const step = reduceMotion.matches
-        ? 1
-        : 1 - Math.pow(1 - FOLLOW, Math.min(now - last, 100) / (1000 / 60))
-      last = now
-      pos.x += (target.x - pos.x) * step
-      pos.y += (target.y - pos.y) * step
-      el.style.translate = `${pos.x}px ${pos.y}px`
-      const settled = Math.abs(target.x - pos.x) < 0.1 && Math.abs(target.y - pos.y) < 0.1
-      frame = settled ? 0 : requestAnimationFrame(render)
-    }
+    const pointer = { x: -100, y: -100 }
 
     const updateSurface = () => {
-      const under = document.elementFromPoint(target.x, target.y)
+      const under = document.elementFromPoint(pointer.x, pointer.y)
       el.dataset.surface = under && isDark(under) ? 'dark' : 'light'
     }
 
     const onMove = (e: MouseEvent) => {
-      if (el.dataset.visible === undefined) {
-        // First move: start at the pointer instead of sliding in from a corner.
-        pos.x = e.clientX
-        pos.y = e.clientY
-      }
-      target.x = e.clientX
-      target.y = e.clientY
+      pointer.x = e.clientX
+      pointer.y = e.clientY
+      el.style.translate = `${pointer.x}px ${pointer.y}px`
       el.dataset.visible = ''
       updateSurface()
-      if (!frame) {
-        last = performance.now()
-        frame = requestAnimationFrame(render)
-      }
     }
     const onLeave = () => delete el.dataset.visible
 
@@ -62,7 +36,6 @@ export function Cursor() {
     window.addEventListener('scroll', updateSurface, { passive: true })
     root.addEventListener('mouseleave', onLeave)
     return () => {
-      cancelAnimationFrame(frame)
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('scroll', updateSurface)
       root.removeEventListener('mouseleave', onLeave)

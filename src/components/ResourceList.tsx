@@ -15,7 +15,7 @@ export function ResourceList({ items }: { items: LibraryResource[] }) {
     <ul className="border-t border-grey">
       {items.map((item) => (
         <li key={item.id} className="border-b border-grey">
-          <a href={item.href} className="group flex transition-colors duration-500 ease-out hover:bg-light-grey hover:duration-150">
+          <a href={item.href} className="group flex transition-colors duration-800 ease-out hover:bg-light-grey hover:duration-150">
             <span className="flex flex-1 flex-col items-start gap-3 p-4">
               <span className="text-title-sm text-black lg:text-title">{item.title}</span>
               <span className="-order-1 flex">

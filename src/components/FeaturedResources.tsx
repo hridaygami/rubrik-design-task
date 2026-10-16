@@ -28,14 +28,14 @@ export function FeaturedResources({ items }: { items: FeaturedResource[] }) {
           >
             <a
               href={item.href}
-              className="group flex flex-col items-start gap-3 p-4 transition-colors duration-500 ease-out hover:bg-light-grey hover:duration-150 focus-visible:outline-offset-[-2px] lg:min-h-16 lg:flex-row lg:items-center lg:gap-4 lg:py-3"
+              className="group flex flex-col items-start gap-3 p-4 transition-colors duration-800 ease-out hover:bg-light-grey hover:duration-150 focus-visible:outline-offset-[-2px] lg:min-h-16 lg:flex-row lg:items-center lg:gap-4 lg:py-3"
             >
               <span className="text-title-sm text-black lg:text-title">{item.title}</span>
               <span className="-order-1 flex shrink-0 lg:order-none">
                 <Tag>{item.type}</Tag>
               </span>
               <span className="inline-flex shrink-0 items-center gap-3 text-body font-medium whitespace-nowrap text-secondary lg:ml-auto">
-                <span className="underline decoration-transparent underline-offset-4 transition-[text-decoration-color] duration-500 ease-out group-hover:decoration-current group-hover:duration-150">
+                <span className="underline decoration-transparent underline-offset-4 transition-[text-decoration-color] duration-800 ease-out group-hover:decoration-current group-hover:duration-150">
                   {item.cta}
                 </span>
                 <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden />
