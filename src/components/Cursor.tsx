@@ -5,7 +5,9 @@ const FINE_POINTER = '(hover: hover) and (pointer: fine)'
 // Surfaces darker than this relative luminance get the light cursor.
 const DARK_LUMINANCE = 0.25
 
-// Tracks the pointer exactly: an easing lag made the cursor harder to aim.
+// A small diamond (a square turned 45° with softened corners), echoing the
+// basic unit of the Rubrik logo. Tracks the pointer exactly: an easing lag made
+// it harder to aim.
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null)
 
@@ -48,7 +50,7 @@ export function Cursor() {
       ref={dot}
       aria-hidden
       data-cursor-dot
-      className="pointer-events-none fixed top-0 left-0 z-100 -mt-2 -ml-2 size-4 rounded-full bg-brand opacity-0 transition-[background-color,opacity] duration-200 data-visible:opacity-100 data-[surface=dark]:bg-grey"
+      className="pointer-events-none fixed top-0 left-0 z-100 -mt-1.5 -ml-1.5 size-3 rotate-45 rounded-xs bg-brand opacity-0 transition-[background-color,opacity] duration-200 data-visible:opacity-100 data-[surface=dark]:bg-grey"
     />
   )
 }

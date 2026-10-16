@@ -33,7 +33,7 @@ Spacing was matched by measurement at a 1440px frame.
 - **`accent` is about 3.3:1 on white.** Use it for icons, borders, large text or as a fill behind black text, never for body text.
 - **Search and filter borders are black.** Everything else uses `grey`. The search bar is the page's main control, so it gets the strongest edge.
   - The bar's black sides sit on top of the grey page rails, so its box reads as closed.
-  - An open filter dropdown continues the black sides and bottom, but a grey line separates it from the bar.
+  - An open filter dropdown continues the black outline on all sides, with a black line between it and the bar.
 
 ### Typography
 
@@ -106,10 +106,11 @@ Spacing was matched by measurement at a 1440px frame.
 
 ### Cursor
 
-- **On mouse and trackpad devices, the native cursor becomes a 16px `brand` circle that tracks the pointer exactly.** Touch devices keep native behaviour.
+- **On mouse and trackpad devices, the native cursor becomes a small `brand` diamond that tracks the pointer exactly.** Touch devices keep native behaviour.
+  - The diamond is a 12px square turned 45° with 2px rounded corners, about 17px tip to tip. It echoes the basic unit of the Rubrik logo.
   - We tried an easing lag for a relaxed feel and removed it, because a cursor that trails the pointer is harder to aim, especially for people with motor impairments.
-- **Over dark surfaces the circle turns `grey`.** It works out whether the background under the pointer is dark, so new dark elements need no extra setup.
-- **The native cursor comes back while a modal dialog is open,** because dialogs render above everything, including the circle.
+- **Over dark surfaces the diamond turns `grey`.** It works out whether the background under the pointer is dark, so new dark elements need no extra setup.
+- **The native cursor comes back while a modal dialog is open,** because dialogs render above everything, including the diamond.
 
 ---
 

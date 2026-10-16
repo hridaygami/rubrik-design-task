@@ -130,7 +130,7 @@ export function ResourceFilters({ value, onChange, facets, resultCount }: Props)
               {popoverKey === facet.key && (
                 <div
                   id={panelId}
-                  className="absolute -inset-x-px top-full z-20 border border-t-grey border-black bg-white transition-[opacity,translate] duration-150 ease-out starting:-translate-y-1 starting:opacity-0 motion-reduce:transition-none"
+                  className="absolute -inset-x-px top-full z-20 border border-black bg-white transition-[opacity,translate] duration-150 ease-out starting:-translate-y-1 starting:opacity-0 motion-reduce:transition-none"
                 >
                   <FacetOptions
                     facet={facet}
