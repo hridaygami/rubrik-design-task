@@ -22,11 +22,14 @@ Spacing was matched by measurement at a 1440px frame.
 | `secondary` / `secondary-hover` | #7B5E7B / #5C475C | Section label, card links |
 | `accent` | #21A179 | Defined, unused so far |
 | `grey` | #D7DEDC | All dividers, rails and tag outlines |
-| `light-grey` | #F4F6F5 | Tag fill, row hover, open filter button |
+| `light-grey` | #F4F6F5 | Row hover, open filter button |
+| `faint-grey` | #FAFBFA | Tag fill |
+| `mid-grey` | #B4BEBB | Tag outline |
 | `black` / `white` | #000 / #FFF | Text and page background |
 | `muted` | #626262 | Secondary text (nav, subtitle, counts) |
 
 - **`muted` is outside the palette.** `grey` is too light for text on white, and secondary text needs at least 4.5:1 contrast.
+- **`faint-grey` and `mid-grey` are outside the palette.** Tags sit on rows that hover to `light-grey`. A fill halfway to white plus a darker outline keeps them visible in both states.
 - **`accent` is about 3.3:1 on white.** Use it for icons, borders, large text or as a fill behind black text, never for body text.
 - **Search and filter borders are black.** Everything else uses `grey`. The search bar is the page's main control, so it gets the strongest edge.
   - The bar's black sides sit on top of the grey page rails, so its box reads as closed.
@@ -67,7 +70,7 @@ Spacing was matched by measurement at a 1440px frame.
 ### Fresh off the press (featured cards)
 
 - **Card anatomy:** title, tag and link in one row from 1024px up; tag, then title, then link below 1024px.
-- **Hover matches the library list:** white by default, `light-grey` on hover.
+- **Hover matches the library list:** white by default, `light-grey` on hover. The link text also underlines on hover.
   - We tried an image reveal behind the cards (hover on desktop, a scroll sweep on touch) and dropped it. It didn't feel right, and a plain hover keeps the two lists consistent.
 - **Links and tags never wrap.** The title absorbs the squeeze.
 
@@ -98,7 +101,15 @@ Spacing was matched by measurement at a 1440px frame.
 - **Easing is smooth ease-out with no bounce.** Movement is restrained: 12px of travel for entrances, short slides for overlays.
 - **Page entrance:** a staggered rise and fade, in this order: headline, subtitle, featured cards one by one, then the search bar.
 - **Overlays (menu, scrim, filter sheet) run at 250ms.** Feedback found 300ms or slower "lazy".
+- **Card hovers come in fast (150ms) and fade out slowly (500ms),** so the page feels relaxed rather than twitchy.
 - **`prefers-reduced-motion` turns off the entrances and slides.** Content still appears; it just doesn't move.
+
+### Cursor
+
+- **On mouse and trackpad devices, the native cursor becomes a 16px `brand` circle that eases toward the pointer,** adding a relaxed feel to the page. Touch devices keep native behaviour.
+- **Over dark surfaces the circle turns `grey`.** It works out whether the background under the pointer is dark, so new dark elements need no extra setup.
+- **The native cursor comes back while a modal dialog is open,** because dialogs render above everything, including the circle.
+- **Under reduced motion the circle follows the pointer exactly, without the lag.**
 
 ---
 

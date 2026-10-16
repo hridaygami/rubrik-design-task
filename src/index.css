@@ -16,6 +16,12 @@
 
   /* Not in the palette: secondary text needs ≥4.5:1 on white, which grey can't give. */
   --color-muted: #626262;
+  /* Not in the palette: tag fill, halfway between light-grey and white, so tags
+     stay visible on rows that hover to light-grey. */
+  --color-faint-grey: #fafbfa;
+  /* Not in the palette: tag outline, darker than grey so tags hold their edge
+     on light-grey hover rows. */
+  --color-mid-grey: #b4bebb;
 
   /* Type scale. -sm steps are for narrow widths, -md for tablet. */
   --text-display: 4.5rem;
@@ -64,6 +70,17 @@
     @variant md {
       scroll-padding-top: 6rem;
     }
+  }
+
+  /* The custom cursor replaces the native one, except while a modal dialog is
+     open: dialogs sit in the top layer, above the cursor dot. */
+  html[data-custom-cursor]:not(:has(dialog:modal)),
+  html[data-custom-cursor]:not(:has(dialog:modal)) * {
+    cursor: none !important;
+  }
+
+  html:has(dialog:modal) [data-cursor-dot] {
+    visibility: hidden;
   }
 
   /* Modal dialogs (the filter sheet) lock page scroll while open. */

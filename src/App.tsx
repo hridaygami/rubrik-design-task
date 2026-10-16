@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Cursor } from './components/Cursor'
 import { FeaturedResources } from './components/FeaturedResources'
 import { ResourceFilters, type Facet, type Filters } from './components/ResourceFilters'
 import { ResourceList } from './components/ResourceList'
@@ -38,6 +39,7 @@ function App() {
 
   return (
     <>
+      <Cursor />
       <SiteHeader />
       <div className="mx-auto max-w-[1440px] px-4 pb-20 sm:px-6">
         <div className="border-x border-grey">
@@ -71,7 +73,7 @@ function App() {
                 />
               </div>
 
-              <p role="status" className="px-4 pt-12 pb-4 text-body text-muted sm:px-6">
+              <p role="status" className="px-4 pt-12 pb-4 text-body text-muted">
                 Showing {results.length} of {libraryResources.length} resources
               </p>
 
