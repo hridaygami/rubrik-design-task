@@ -317,8 +317,10 @@ effects:
 - **Open Graph image:** share previews don't accept SVG, and PNGs stay out of the
   repo, so a small Vite plugin in `vite.config.ts` renders the card with resvg.
   - The build writes `og-image.png`; the dev server serves it on the fly.
-  - It injects the `og:image` tags. `SITE_URL` must be set at build time, because
-    crawlers need an absolute image URL.
+  - It injects the `og:image` tags with an absolute URL, which crawlers need. It
+    uses `SITE_URL` when set, and otherwise Vercel's production domain
+    (`VERCEL_PROJECT_PRODUCTION_URL`), so deploys work with no setup. Previews point
+    at production too, since the card never changes.
   - Title, description and the large-card tag are static in `index.html`.
 - **Content:** typed placeholder data in `src/data/resources.ts`. Featured titles
   come from the Figma frame; library titles, types and filter options come from

@@ -11,11 +11,17 @@ export default defineConfig({
 
 // The Open Graph card: the brand logo centred on white. It's rendered to PNG at
 // build time (and served on the fly in dev) so no raster image lives in the
-// repo. Crawlers need an absolute image URL, so set SITE_URL when deploying.
+// repo.
 function ogImage(): Plugin {
   const fileName = 'og-image.png'
   const [width, height, scale] = [1200, 630, 3]
   let png: Buffer | undefined
+
+  // Crawlers need an absolute image URL. SITE_URL wins when set; on Vercel,
+  // fall back to the project's production domain, which Vercel exposes at build
+  // time (previews point there too, since the card never changes).
+  const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  const siteUrl = (process.env.SITE_URL ?? (vercelHost ? `https://${vercelHost}` : '')).replace(/\/$/, '')
 
   const render = () => {
     const logo = readFileSync('src/assets/rubrik-logo-colour.svg', 'utf8')
@@ -40,7 +46,7 @@ function ogImage(): Plugin {
       this.emitFile({ type: 'asset', fileName, source: render() })
     },
     transformIndexHtml: () => [
-      ['og:image', `${process.env.SITE_URL ?? ''}/${fileName}`],
+      ['og:image', `${siteUrl}/${fileName}`],
       ['og:image:width', `${width}`],
       ['og:image:height', `${height}`],
       ['og:image:alt', 'Rubrik'],
