@@ -135,7 +135,7 @@ Spacing was matched by measurement at a 1440px frame.
 - **The favicon is the logomark alone, black in light mode and white in dark mode.** It's one SVG that switches with `prefers-color-scheme`, so the browser tab picks the right version.
 - **The Open Graph card is the brand-green logo centred on white.**
   - The build renders it to PNG from the logo SVG, because share previews don't accept SVG and raster files stay out of the repo.
-  - Crawlers need an absolute URL, so set `SITE_URL` when building for deployment.
+  - Crawlers need an absolute URL. The build uses `SITE_URL` when set, and otherwise the Vercel production domain.
 - **Links, and each library item's use case and workload, are placeholders** in `src/data/resources.ts`.
 
 ---
